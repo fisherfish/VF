@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load str_url %}
+{% block title %}首页{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+{% endblock %}
+{% block content %}
+
+	<!-- 轮播图 -->
+	<div id="myCarousel" class="carousel slide">
+	<!-- 轮播（Carousel）指标 -->
+		<ol class="carousel-indicators">
+			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+			<li data-target="#myCarousel" data-slide-to="1"></li>
+			<li data-target="#myCarousel" data-slide-to="2"></li>
+		</ol>
+		<!-- 轮播（Carousel）项目 -->
+		<div class="carousel-inner">
+        {% for banner in banners %}
+			<div class="item {% if forloop.counter == 1 %}active{% endif %}">
+				<a href="/video/detail/506/"><img src={{ MEDIA_URL }}{{ banner.image }}>
+			</div>
+        {% endfor %}
+		</div>
+		<!-- 轮播（Carousel）导航 -->
+		<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+			<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+			<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+			<span class="sr-only">Next</span>
+		</a>
+	</div>
+
+	<!-- 电影 -->
+	<div class="solo">
+		<div class="name" id="movie">
+			<span class="glyphicon glyphicon-expand" style="color:#003399;font-size: 25px; margin: 5px"></span>
+			<a class="title" href={% url 'video:movie' %}>最新电影</a>
+			<a class = 'more' href="{% url 'video:movie' %}">更多&gt </a>
+			<div class="row">
+				{% for m in movie %}
+                <div>
+                    <div>
+                        <a href='/video/detail/{{ m.id }}/'><img src={% if m.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ m.image }}></a>
+                    </div>
+					<a class="v_name" href='/video/detail/{{ m.id }}/'>{{ m.name }}</a>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+		<div class="rright">
+			<span>热度</span>
+			<ul>
+            {% for m in movie2 %}
+				<li style="display: inline-block;white-space: nowrap;width: 250px;overflow: hidden;text-overflow:ellipsis;"><span class="glyphicon glyphicon-triangle-right"></span><a href="/video/detail/{{ m.id }}/">{{ m.name }}</a>{{ m.add_time }}</li>
+			{% endfor %}
+            </ul>
+		</div>
+	</div>
+
+	<!-- 剧集 -->
+	<div class="solo">
+		<div class="name" id="tv">
+			<span class="glyphicon glyphicon-expand" style="color:#003399;font-size: 25px; margin: 5px"></span>
+			<a class="title" href={% url 'video:tv' %}>最新剧集</a>
+			<a class = 'more' href="{% url 'video:movie' %}">更多&gt </a>
+			<div class="row">
+				{% for m in tv %}
+                <div>
+                    <div>
+                        <a href='/video/detail/{{ m.id }}/'><img src={% if m.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ m.image }}></a>
+                    </div>
+					<a class="v_name" href='/video/detail/{{ m.id }}/'>{{ m.name }}</a>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+		<div class="rright">
+			<span>热度</span>
+			<ul>
+            {% for m in tv2 %}
+				<li style="display: inline-block;white-space: nowrap;width: 250px;overflow: hidden;text-overflow:ellipsis;"><span class="glyphicon glyphicon-triangle-right"></span><a href="/video/detail/{{ m.id }}/">{{ m.name }}</a>{{ m.add_time }}</li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+
+	<!-- 动漫 -->
+	<div class="solo">
+		<div class="name" id="cartoon">
+			<span class="glyphicon glyphicon-expand" style="color:#003399;font-size: 25px; margin: 5px"></span>
+			<a class="title" href={% url 'video:anime' %}>最新动漫</a>
+			<a class = 'more' href="{% url 'video:movie' %}">更多&gt </a>
+			<div class="row">
+				{% for m in anime %}
+                <div>
+                    <div>
+                        <a href='/video/detail/{{ m.id }}/'><img src={% if m.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ m.image }}></a>
+                    </div>
+					<a class="v_name" href='/video/detail/{{ m.id }}/'>{{ m.name }}</a>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+		<div class="rright">
+			<span>热度</span>
+			<ul>
+            {% for m in anime2 %}
+				<li style="display: inline-block;white-space: nowrap;width: 250px;overflow: hidden;text-overflow:ellipsis;"><span class="glyphicon glyphicon-triangle-right"></span><a href="/video/detail/{{ m.id }}/">{{ m.name }}</a>{{ m.add_time }}</li>
+			{% endfor %}
+            </ul>
+		</div>
+	</div>
+
+	<!-- 综艺 -->
+	<div class="solo">
+		<div class="name" id="fun">
+			<span class="glyphicon glyphicon-expand" style="color:#003399;font-size: 25px; margin: 5px"></span>
+			<a class="title" href={% url 'video:variety' %}>热门综艺</a>
+			<a class = 'more' href="{% url 'video:movie' %}">更多&gt </a>
+			<div class="row">
+				{% for m in variety %}
+                <div>
+                    <div>
+                        <a href='/video/detail/{{ m.id }}/'><img src={% if m.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ m.image }}></a>
+                    </div>
+					<a class="v_name" href='/video/detail/{{ m.id }}/'>{{ m.name }}</a>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+		<div class="rright">
+			<span>热度</span>
+			<ul>
+            {% for m in variety2 %}
+				<li style="display: inline-block;white-space: nowrap;width: 250px;overflow: hidden;text-overflow:ellipsis;"><span class="glyphicon glyphicon-triangle-right"></span><a href="/video/detail/{{ m.id }}/">{{ m.name }}</a>{{ m.add_time }}</li>
+			{% endfor %}
+            </ul>
+		</div>
+	</div>
+
+	<!-- 纪录片 -->
+	<div class="solo">
+		<div class="name" id="real">
+			<span class="glyphicon glyphicon-expand" style="color:#003399;font-size: 25px; margin: 5px"></span>
+			<a class="title" href={% url 'video:documentary' %}>你是我的眼</a>
+			<a class = 'more' href="{% url 'video:movie' %}">更多&gt </a>
+			<div class="row">
+				{% for m in doc %}
+                <div>
+                    <div>
+                        <a href='/video/detail/{{ m.id }}/'><img src={% if m.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ m.image }}></a>
+                    </div>
+					<a class="v_name" href='/video/detail/{{ m.id }}/'>{{ m.name }}</a>
+				</div>
+                {% endfor %}
+			</div>
+		</div>
+		<div class="rright">
+			<span>热度</span>
+			<ul>
+            {% for m in doc2 %}
+				<li style="display: inline-block;white-space: nowrap;width: 250px;overflow: hidden;text-overflow:ellipsis;"><span class="glyphicon glyphicon-triangle-right"></span><a href="/video/detail/{{ m.id }}/">{{ m.name }}</a>{{ m.add_time }}</li>
+			{% endfor %}
+            </ul>
+		</div>
+	</div>
+
+	<!-- 右侧导航按钮 -->
+	<div class="btn-group-vertical menu">
+      <a class="btn btn-default" href="#movie">电影</a>
+	  <a class="btn btn-default" href="#tv">剧集</a>
+      <a class="btn btn-default" href="#cartoon">动漫</a>
+      <a class="btn btn-default" href="#fun">综艺</a>
+      <a class="btn btn-default" href="#real">纪录片</a>
+	</div>
+   <!-- 返回页顶 -->
+   <a class="bck-top"><span class="glyphicon glyphicon-menu-up"></span></a>
+{% endblock %}

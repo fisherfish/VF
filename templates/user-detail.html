@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}个人中心{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/user.css">
+{% endblock %}
+{% block content %}
+    <!-- 横条 -->
+    <div class="crossband">
+        <h1 style="color: #fff;margin-top: 0px;line-height: 180px;margin-left: 150px;">个人中心</h1>
+    </div>
+    <!-- 面包屑 -->
+    <div class="container" style="margin-top: 10px;margin-bottom: -20px;">
+        <div class="row">
+            <div class="span6">
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="/">首页</a> <span class="divider">></span>
+                    </li>
+                    <li>个人资料</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-detail clearfix">
+        <div class="left">
+            <div><a class="uesr-info active" href={% url 'user:user_info' %}>个人资料</a></div>
+            <div><a class="user-favor" href="{% url 'user:user_fav' %}">我的收藏</a></div>
+            <div><a class="user-message" href="{% url 'user:user_comment' %}">我的评论</a></div>
+        </div>
+        <div class="right">
+            <div class="usertop">
+                个人信息
+            </div>
+            <div class="rleft">
+                <form id="chang_photo" method="post" enctype="multipart/form-data" action={% url 'user:up_photo' %}>
+                    <img src={{ MEDIA_URL }}{{ request.user.image }}>
+                    <label class="upphoto">
+                        上传头像
+                        <input id="photo" type="file" name="image" style="display: none;">
+                    </label>
+                    <hr style="width: 200%;margin-left: -50px;border-top: solid 1px gray">
+                    {% csrf_token %}
+                </form>
+                <span class="changepwd">修改密码</span>
+            </div>
+            <div class="rright">
+                <form action="/user/info/" method="post" class="info-form">
+                    <ul>
+                        <li>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
+                            <input type="text" name="name" value="{{ request.user.nick_name }}">
+                            <i class="error-tips"></i>
+                        </li>
+                        <li>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
+                            <input type="data" name="address" value="{{ request.user.address }}">
+                            <i class="error-tips"></i>
+                        </li>
+                        <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+                            <label>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="width: 30px; margin-left: -30px;" type="radio"  name="gender" value="male" {% if request.user.gender == 'male' %}checked="checked"{% endif %}>男
+                            </label>
+                            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input style="width: 30px; margin-left: 0px;" type="radio" name="gender" value="female" {% if request.user.gender == 'female' %}checked="checked"{% endif %}>女</label>
+                        </li>
+                        <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+                            <input style="border: none;" disabled="disabled" type="email" name="email" value="{{ request.user.email }}"/>
+                        </li>
+                        <input id="submit" style="border: none;width: 100px; height: 35px; background-color: gray;margin: 30px 300px; color: #fff" type="submit" value="保存">
+                        </li>
+                    </ul>
+                {% csrf_token %}
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="mask"></div>
+    <div class="modify">
+        <p style="font-size: 20px;margin:20px 40px 10px;">账号登录</p>
+        <a style="float: right;margin:-35px 30px 0px 0px; font-size: 20px;">
+            <span style="cursor: pointer;" class="glyphicon glyphicon-remove"></span>
+        </a>
+        <HR style="margin-top: 0px; border:1 dashed #987cb9" width="80%" color=#eee SIZE=1>
+        <form id="form" action={% url "user:change_pwd" %} method="post">
+            <div class="pwd">
+                <label for="pwd" style="font-weight: normal;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;|</label>
+                <input type="password" name="pwd" id="pwd1" placeholder="请输入密码">
+            </div>
+            <div class="msg pwd1msg">密码不能为空</div>
+            <div class="pwd">
+                <label for="pwd" style="font-weight: normal;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;|</label>
+                <input type="password" name="pwd" id="pwd2" placeholder="请再次输入密码">
+            </div>
+            <div class="msg pwd2msg">密码不能为空</div>
+            <div style="list-style: none;color: red;text-align: center;margin-bottom: -10px;height: 10px;">
+                {% for k,v in reset_pwd_form.errors.items %}{{ v }}{% endfor %}
+            </div>
+            <div class="submit">
+                <input type="submit" name="submit" value="确认修改">
+            </div>
+            {% csrf_token %}
+        </form>
+   </div>
+
+
+
+   <!-- 返回页顶 -->
+   <a class="bck-top" href="#bac-tp"><span class="glyphicon glyphicon-menu-up"></span></a>
+<script type="text/javascript">
+    $(function(){
+        $('.changepwd').click(function(){
+            $('.mask').show()
+            $('.modify').show()
+        })
+
+        $('.glyphicon-remove').click(function(){
+            $('.mask').hide()
+            $('.modify').hide()
+        });
+        $('#photo').change(function(){
+            $('#chang_photo').submit()
+        })
+
+    })
+</script>
+{% endblock %}

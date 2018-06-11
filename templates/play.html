@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}{{ video.name }}{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/DPlayer.min.css">
+    <script src="/static/js/DPlayer.min.js"></script>
+{% endblock %}
+{% block content %}
+    <!-- 播放器 -->
+    <h3 style="width:950px;margin:50px auto 10px auto;">正在播放：{{ video.name }}</h3>
+	<div id="dplayer" class="player"></div>
+
+	<!-- 关灯 -->
+	<div id="light" style="cursor: pointer;position:fixed;right:100px;top:300px;width:30px;height:49px;background:no-repeat url(/static/image/light.png);"></div>
+
+	<script>
+	var vid="/static/wanguxianqiong.mp4";
+	var isWap = navigator.userAgent.match(/iPad|iPhone|iPod|Android/i) != null;
+	if(isWap){
+	document.getElementById('dplayer').innerHTML='<video src="'+vid+'" type="video/MP4" controls="" preload="none" style="width:100%;height:100%;"></video>';
+	}else{
+	var dp = new DPlayer({
+	element: document.getElementById('dplayer'),
+	autoplay: true,
+	loop: false,
+	logo: '/static/image/logo.png',
+	screenshot: false,
+	video:{
+	       name: '测试',
+	       url: ''+vid+'',
+	      }
+
+	});
+	}
+
+	</script>
+{% endblock %}

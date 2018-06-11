@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load str_url %}
+{% block title %}{{ video.name }}{% endblock %}
+{% block css %}
+        <link rel="stylesheet" type="text/css" href="/static/css/detail.css">
+{% endblock %}
+{% block content %}
+    <!-- 横条 -->
+    <div class="crossband"></div>
+    <!-- 简介 -->
+    <div class="detail">
+        <a href="/video/play/{{ video.id }}">
+            <img src={% if video.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ video.image }}>
+            <span class="back"></span>
+        </a>
+        <div class="video-title">
+            <span>{{ video.name }}</span>
+            <a class="favor {% if has_fav %}hasfav{% endif %}"></a>
+            <a class="addcomment"></a>
+        </div>
+        <div class="desc">
+            <div style="margin-left: 290px; margin-top: 0px">
+                <i class="item">
+                    <span>年代：</span>
+                    2018
+                </i>
+                <i class="item">
+                    <span>地区：</span>
+                    {% ifequal video.tags '日漫' %}日本{% else %}美国{% endifequal %}
+                </i>
+                <i class="item">
+                    <span>类型：</span>
+                    {% ifequal video.tags '日漫' %}动漫{% else %}{{ video.tags }}{% endifequal %}
+                </i>
+                <i class="item">
+                    <span>评分：</span>
+                    {{ video.click_nums }}
+                </i>
+            </div>
+            <p class="summary">
+                简介：《{{ video.name }}》是由XX·XXXXX执导，XX·XX、XXX·XXX编剧，XX·XXX、XXXX·XX、XX·XX、X·X·XX主演的XXXX片，于XXXX年X月XX日在中国大陆上映。<br/>讲述了一个现实生活中无所寄托、沉迷游戏的大男孩，凭着对虚拟游戏设计者的深入剖析，历经磨难，找到隐藏在关卡里的三把钥匙，成功通关游戏，并且还收获了网恋女友的故事。
+            </p>
+            <hr style="margin-left: 290px;" />
+            <div class="play-comment">
+                <a href="/video/play/{{ video.id }}">立即播放</a>
+                <a href="#comment-item">查看评论</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 猜你喜欢 -->
+    <div class="ufavor excessive"><span class="glyphicon glyphicon-hand-right" style="color: blue">&nbsp;</span>猜你喜欢</div>
+    <div class="gray clearfix">
+        <div class="y-like clearfix">
+        {% for v in guess_like %}
+            <div class="ulike">
+                <a href='/video/detail/{{ v.id }}/'><img src={% if v.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ v.image }}></a>
+                <a href='/video/detail/{{ v.id }}/' class="title" style="display: block;">{{ v.name }}</a>
+            </div>
+        {% endfor %}
+        </div>
+
+        <!-- 评论 -->
+        <div class="comment-item" id="comment-item">
+            <h2 style="font-size: 18px; margin-top: 20px;width: 800px;display: inline-block;">
+                <span>{{ video.name }}的评论</span>
+                <span style="float: right;margin-right: 40px;color: #4b59ea">全部 {{ count }} 条</span>
+            </h2>
+            <hr style="border: solid 1px #fff ;margin-top: 0px;" />
+            {% for comment in comments %}
+            <div class="comment">
+                <h3 style="font-size: 15px;">
+                    <span class="comment-info">
+                        <img src="{{ MEDIA_URL }}{{ comment.user.image }}" style="width: 25px;height: 25px;margin-right: 5px;">
+                        {{ comment.user.nick_name }}
+                        <span class="comment-time">{{ comment.add_time }}</span>&nbsp;&nbsp;
+                        <span class="glyphicon glyphicon-thumbs-up" id="{{ comment.id }}">{{ comment.praise_num }}</span>
+                    </span>
+                </h3>
+                <p style="margin-top: 10px; line-height: 25px;font-family: '宋体';opacity: 0.7;">{{ comment.comments|safe }}</p>
+            </div>
+            <hr style="border: solid 1px #fff ;margin-top: 0px;" />
+            {% endfor %}
+            {% if comments.has_next %}
+                <span class="get-more" id="get-more">加载更多...</span>
+            {% else %}
+                <span class="get-more" id="no-more">没有更多了</span>
+            {% endif %}
+        </div>
+
+        <!-- 推荐影评 -->
+        <div class="hot-review">
+            <p>影评推荐</p>
+            <hr style="border:solid 1px #fff;margin:0 10px" />
+            <ul>
+                {% for comment in r_com %}
+                    {% ifnotequal comment.comments_title '' %}
+                        <li><span class="glyphicon glyphicon-pencil"></span><a class="com-title" href="/video/detail/{{ comment.video_id }}/#comment-item">&nbsp;&nbsp;{{ comment.comments_title }}</a></li>
+                    {% endifnotequal %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="mask"></div>
+
+
+
+    <form class="comment-form" method="post" action={% url 'video:add_comment' %}>
+        <br>
+        <textarea id="addcomment" name='hcontent'></textarea>
+        <input  type="hidden" name="video_id" value={{ video.id }} >
+        <span style="display: inline-block;width: 180px"></span>
+        <input type="submit" class="submitcom" value="上传">
+        <input type="button" class="submitcom" id="exit" value="退出">
+        <input id="com-title"  type="text" name="comment_title" placeholder="&nbsp;&nbsp;请输入标题" >
+        {% csrf_token %}
+    </form>
+    <script type="text/javascript" src='/static/tiny_mce/tiny_mce.js'></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            'mode':'textareas',
+            'theme':'advanced',
+            'width':800,
+            'height':350
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('.favor').click(function(){
+		$.ajax({
+			cache: false,
+			type: "POST",
+			url:"/video/addfav/",
+			data:{'fav_id': {{ video.id }}},
+			async: true,
+			beforeSend:function(xhr, settings){
+				xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+			},
+			success: function(data) {
+				if(data.status == 'fail'){
+					if(data.msg == '用户未登录'){
+						window.location.href="/login/";
+					}else{
+						alert(data.msg)
+					}
+
+				}else if(data.status == 'success'){
+					if(data.msg == 'fav'){$('.favor').css('background-position-y','0')}
+					if(data.msg == 'already'){$('.favor').css('background-position-y','-26px')}
+				}
+			}
+		});
+		});
+    </script>
+    <script type="text/javascript">
+        $('body').on('click','.glyphicon-thumbs-up',function(){
+            var comment_id = $(this).attr('id');
+        $.ajax({
+			cache: false,
+			type: "POST",
+			url:"/video/comment_praise/",
+			data:{'praise_id':comment_id},
+			async: true,
+			beforeSend:function(xhr, settings){
+				xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+			},
+			success: function(data) {
+				if(data.status == 'fail'){
+					if(data.msg == '用户未登录'){
+						window.location.href="/login/";
+					}else{
+						alert(data.msg)
+					}
+
+				}else if(data.status == 'success'){
+				    var id = '#'+comment_id;
+					if(data.msg == 'praise'){$(id).text(data.praise_num)}
+					if(data.msg == 'already'){$(id).text(data.praise_num)}
+				}
+			}
+		});
+        })
+    </script>
+    <script type="text/javascript">
+    var pages = {{ pages }};
+    var nex_p = '{{ comments.next_page_number }}';
+        $('#get-more').click(function(){
+            if(pages < nex_p){
+                $('.get-more').text('没有更多了');
+                return false
+            }
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url:"/video/detail/{{ video.id }}/",
+                data:{'nex_p':nex_p},
+                async: true,
+                beforeSend:function(xhr, settings){
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                },
+                success: function(data){
+                    var commentList = data.data;
+                    $.each(commentList,function(i,item){
+                        var tag = '<div class="comment"><h3 style="font-size: 15px;"><span class="comment-info"><img src="'+item.imgsrc+'" style="width: 25px;height: 25px;margin-right: 5px;">'+item.nick_name+'<span class="comment-time">'+item.add_time+'</span>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up" id="'+item.comment_id+'">'+item.praise_num+'</span></span></h3><p style="margin-top: 10px; line-height: 25px;opacity: 0.7;">'+item.comment+'</p></div><hr style="border: solid 1px #fff ;margin-top: 0px;" />'
+                        $('.get-more').before(tag)
+                    });
+                    nex_p++;
+                }
+            });
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,84 @@
+body{
+	background-color: gray;
+}
+.form {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 500px;
+	background: #F8F8F8;
+	padding: 30px 30px 20px 30px;
+	font: 12px Arial, Helvetica, sans-serif;
+	color: #666;
+	border-radius: 5px;
+}
+
+.form h1 {
+	font-size: 24px;
+	padding: 20px 0px 20px 40px;
+	display: block;
+	margin: -30px -30px 10px -30px;
+	color: #FFF;
+	background: url(/static/image/back-detail.jpg);
+	text-shadow: 1px 1px 1px #949494;
+	border-radius: 5px 5px 0px 0px;
+	border-bottom: 1px solid #89AF4C;
+}
+
+.form h1 > span {
+	display: block;
+	font-size: 11px;
+	color: #FFF;
+}
+
+.form label {
+	display: block;
+	margin: 0px 0px 5px;
+}
+
+.form label > span {
+	float: left;
+	margin-top: 10px;
+	color: #5E5E5E;
+}
+
+.form input[type="text"], .form input[type="email"], .form textarea, .form select {
+	color: #555;
+	height: 30px;
+	line-height: 15px;
+	width: 100%;
+	padding: 0px 0px 0px 10px;
+	margin-top: 2px;
+	border: 1px solid #E5E5E5;
+	background: #FBFBFB;
+	outline: 0;
+	font: normal 14px/14px Arial, Helvetica, sans-serif;
+}
+
+.form textarea {
+	height: 100px;
+	padding-top: 10px;
+}
+
+
+.form .button {
+	background-color: #9DC45F;
+	border-radius: 5px;
+	border: none;
+	padding: 10px 25px 10px 25px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #949494;
+}
+
+.form .button:hover {
+	background-color: #80A24A;
+}
+
+.error-msg{
+	color: red;
+	margin-top: 10px;
+}
+.success-msg{
+	color: #80A24A;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

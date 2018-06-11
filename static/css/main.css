@@ -1,0 +1,162 @@
+
+div,ul,li,a,button,img{
+	margin: 0px;
+	padding: 0px;
+	font-family: '微软雅黑';
+	text-decoration: none;
+	color: black;
+}
+
+a:link,a:visited{
+	text-decoration: none;
+	color: #0e69af;
+}
+a:hover{
+	color: #000;
+}
+
+.clearfix:after{conternt:"";
+		display:table;
+		clear:both;
+}
+.clearfix{zoom:1}
+
+/*导航条*/
+.navbar-text a{
+	color: white;
+}
+
+.navbar-text a:hover{
+	color: #caced1;
+	text-decoration: none;
+}
+
+.photo{
+	margin: 5px 0 0 15px;
+	padding:0px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+
+.navbar{
+	
+}
+
+/*弹出信息*/
+.pop{
+	width: 305px;
+	height: 150px;
+	position: fixed;
+	top: 50px;
+	right: 50px;
+	background-color:#eee;
+	z-index: 100;
+	display: none;
+}
+.pop img{
+	width: 80px;
+	height: 80px;
+	margin-top: 10px;
+	margin-left: 10px;
+	border-radius: 50%;
+}
+.pop span{
+	float: right;
+	line-height: 80px;
+	margin-right: 30px;
+}
+.pop a{
+	display: inline-block;
+	width: 90px;
+	height: 30px;
+	background-color: gray;
+	text-align: center;
+	line-height: 30px;
+	color: #fff;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.pop a:nth-of-type(1){
+	width: 180px;
+}
+.pop a:hover{
+	background-color: green;
+}
+
+/*页脚*/
+.mm{
+	display: inline-block;
+	background-image: url(/static/image/ico.png);
+	background-repeat: no-repeat;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.mm:hover,.qq:hover,.wb:hover,.qz:hover{
+	background-image: url(/static/image/ico2.png);
+}
+
+.qq{
+	display: inline-block;
+	background-image: url(/static/image/ico.png);
+	background-position-y:-39px;
+	background-repeat: no-repeat;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.wb{
+	display: inline-block;
+	background-image: url(/static/image/ico.png);
+	background-repeat: no-repeat;
+	background-position-y:-76px;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.qz{
+	display: inline-block;
+	background-image: url(/static/image/ico.png);
+	background-repeat: no-repeat;
+	background-position-y:-117px;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.bottom{
+	background-color:#eee;
+	overflow: hidden;
+	margin-top: 100px;
+}
+
+.ico{
+	text-align: center;
+	margin: 20px;
+}
+
+/*返回页顶*/
+.bck-top{
+	display: inline-block;
+	height: 45px;
+	width: 45px;
+	border-radius: 10px;
+	background-color: #eee;
+	position: fixed;
+	right: 50px;
+	bottom: 20px;
+	font-size: 20px;
+	text-align: center;
+	line-height: 50px;
+	color: black;
+}
+.bck-top:hover{
+	background-color: gray;
+	color: black;
+}
+/*播放器*/
+.player{width:950px;height:450px;margin:0 auto;}

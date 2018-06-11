@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}检索结果{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/list.css">
+{% endblock %}
+{% block content %}
+
+    <!-- 列表展示 -->
+    <div class="sort">
+		<div class="col-mx-12">
+			<a class="active">搜索结果</a>
+			<span class="glyphicon glyphicon-search">&nbsp;共搜索出{{ video.count }}条结果&nbsp;</span>
+		</div>
+	</div>
+    <div class="row">
+    {% for m in video %}
+    	<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    		<div class="movie">
+    			<a href="/video/detail/{{ m.id }}/"><img src={{ m.image }}></a>
+    			<a href="/video/detail/{{ m.id }}/" class="title">{{ m.name }}</a>
+    			<p>{{ m.add_time }}</p>
+    		</div>
+    	</div>
+    {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,234 @@
+body{
+	background-color: #eee;
+}
+
+div,ul,li,a,button,img{
+	margin: 0px;
+	padding: 0px;
+	font-family: '微软雅黑';
+	text-decoration: none;
+	color: black;
+}
+
+a:hover,a:link,a:visited{
+	text-decoration: none;
+}
+
+.clearfix:after{conternt:"";
+		display:table;
+		clear:both;
+}
+.clearfix{zoom:1}
+
+
+/*导航条*/
+.navbar-text a{
+	color: white;
+}
+
+.navbar-text a:hover{
+	color: #caced1;
+	text-decoration: none;
+}
+
+.photo{
+	margin: 5px 0 0 15px;
+	padding:0;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+
+
+/*页底*/
+.mm{
+	display: inline-block;
+	background-image: url(../image/ico.png);
+	background-repeat: no-repeat;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.mm:hover,.qq:hover,.wb:hover,.qz:hover{
+	background-image: url(../image/ico2.png);
+}
+
+.qq{
+	display: inline-block;
+	background-image: url(../image/ico.png);
+	background-position-y:-39px;
+	background-repeat: no-repeat;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.wb{
+	display: inline-block;
+	background-image: url(../image/ico.png);
+	background-repeat: no-repeat;
+	background-position-y:-76px;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.qz{
+	display: inline-block;
+	background-image: url(../image/ico.png);
+	background-repeat: no-repeat;
+	background-position-y:-117px;
+	background-size: 30px;
+	width: 40px;
+	height: 30px;
+}
+
+.bottom{
+	background-color:#fff;
+	overflow: hidden;
+	margin-top: 60px;
+}
+
+.ico{
+	text-align: center;
+	margin: 20px;
+}
+
+
+/*分类筛选标签*/
+.classify{
+	margin-left: 40px;
+}
+
+.table td:nth-of-type(1){
+	text-align: right;
+	width: 55px;
+}
+
+.table a{
+	margin-left: 15px;
+	padding: 1px 5px;
+	display: inline-block;
+}
+
+.classify{
+	margin-right: 15px;
+}
+
+.col-mx-12{
+	width: 88%;
+	margin-top: 20px;
+	margin: 20px auto;
+	background-color: white;
+	border: 1px;
+}
+
+.col-mx-12 table tr td{
+	border: none;
+}
+
+.active{
+	background-color: #4bbfea;
+	color: #fff;
+}
+
+/*排序*/
+.sort{
+	margin-top: 30px;
+	margin-bottom: -20px;
+}
+
+.sort .col-mx-12{
+	height: 40px;
+	line-height: 40px;
+	position: relative;
+	border-bottom: solid 2px green;
+}
+
+.sort a{
+	display: inline-block;
+	height: 40px;
+	width: 80px;
+	text-align: center;
+	margin-right: -5px;
+}
+.sort .active{
+	border: solid 1px green;
+	color: inherit;
+	background-color: #fff;
+	border-bottom: solid 1px #fff;
+	border-top: solid 2px green;
+}
+
+.sort span{
+	position: absolute;
+	right:5px;
+	line-height: 40px;
+	letter-spacing: 4px;
+}
+
+/*筛选结果列表*/
+.movie{
+	width: 180px;
+	height: 300px;
+	background-color: white;
+	text-align: center;
+	margin:0px auto;
+	margin-top: 20px;
+}
+
+.movie img:hover{
+	width: 178px;
+	height: 248px;
+}
+
+.movie img{
+	width: 180px;
+	height: 250px;
+	border: double ;
+	margin-bottom: 5px;
+}
+
+.row{
+	width: 90%;
+	margin:0 auto;
+	padding-right: 10px;
+}
+.title{
+	display: inline-block;
+	white-space: nowrap;
+    width: 150px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+}
+
+/*分页*/
+.page a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	background-color: #fff;
+	margin-right: 10px;
+	text-align: center;
+	line-height: 35px;
+	margin-top: 25px;
+	border: solid 1px #eee;
+}
+
+.page a:hover{
+	border: solid 1px #3af8ae;
+}
+
+.page .pre,.page .next{
+	width: 70px;
+}
+
+.page{
+	text-align: center;
+}
+
+.page .active{
+	background-color: #3af8ae;
+}
+

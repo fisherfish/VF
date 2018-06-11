@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit"> 
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>VF视界｜注册</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/js/index.js"></script>
+</head>
+<body>
+
+
+	<div class="login"></div>
+
+	<div class="form" id="form">
+		<p style="font-size: 20px;margin:20px 40px 10px;">用户注册</p>
+		<a href="/" title="返回首页" style="float: right;margin:-35px 30px 0px 0px; font-size: 20px;">
+			<span class="glyphicon glyphicon-home"></span>
+		</a>
+		<HR style="margin-top: 0px; border:1px dashed #987cb9" width="80%" color=#eee SIZE=1>
+		<form action="/register/" method="post">
+			<div class="username">
+				<label for="username" style="font-weight: normal;">用&nbsp;户&nbsp;名&nbsp;|</label>
+				<input type="text" name="username" id="username" placeholder="请输入有效邮箱">
+			</div>
+            <div class="msg usermsg">用户名不能为空</div>
+			<div class="pwd pwd1">
+				<label for="pwd" style="font-weight: normal;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;|</label>
+				<input type="password" name="pwd" id="pwd1" placeholder="请输入密码">
+			</div>
+            <div class="msg pwd1msg">密码不能为空</div>
+			<div class="pwd pwd2">
+				<label for="pwd" style="font-weight: normal;">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码&nbsp;|</label>
+				<input type="password" name="pwd" id="pwd2" placeholder="请再次输入密码">
+			</div>
+            <div class="msg pwd2msg">密码不能为空</div>
+            <div style="list-style: none;color: red;text-align: center;margin-bottom: -10px;height: 10px;">{{ msg }}{% for k,v in register_form.errors.items %}{{ v }}{% endfor %}</div>
+			<a href="/login/" class="fgt">已有账号?</a>
+			<div class="submit">
+				<input type="submit" name="submit" value="注册并登录">
+			</div>
+            {% csrf_token %}
+		</form>
+	</div>
+
+
+</body>
+</html>

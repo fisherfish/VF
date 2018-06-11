@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load str_url %}
+{% block title %}筛选{% endblock %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="/static/css/list.css">
+{% endblock %}
+{% block content %}
+    <!-- 筛选标签 -->
+    <div class="col-mx-12">
+        <table class="table text-left table-bordered" id="movietags">
+            <tr>
+                <td>频道</td>
+                <td>
+                    <a class="classify {% if request.path|slice:'8' == '/video/n' or request.path|slice:'8' == '/video/h' %}active{% endif %}" href={% url 'video:video_new' %}>全部</a>
+                    <a class="classify {% if request.path|slice:'8' == '/video/m' %}active{% endif %}" href={% url 'video:movie' %}>电影</a>
+                    <a class="classify {% if request.path|slice:'8' == '/video/t' %}active{% endif %}" href={% url 'video:tv' %}>电视剧</a>
+                    <a class="classify {% if request.path|slice:'8' == '/video/a' %}active{% endif %}" href={% url 'video:anime' %}>动漫</a>
+                    <a class="classify {% if request.path|slice:'8' == '/video/v' %}active{% endif %}" href={% url 'video:variety' %}>综艺</a>
+                    <a class="classify {% if request.path|slice:'8' == '/video/d' %}active{% endif %}" href={% url 'video:documentary' %}>纪录片</a>
+                 </td>
+            </tr>
+            {% if tag %}
+            <tr>
+                <td>类型</td>
+                <td>
+                    <a href="#" class="active">全部</a>
+                    <a href="#">喜剧</a>
+                    <a href="#">动作</a>
+                    <a href="#">科幻</a>
+                    <a href="#">剧情</a>
+                    <a href="#">奇幻</a>
+                    <a href="#">战争</a>
+                    <a href="#">犯罪</a>
+                    <a href="#">悬疑</a>
+                    <a href="#">恐怖</a>
+                    <a href="#">传记</a>
+                 </td>
+            </tr>
+
+            <tr>
+                <td>年代</td>
+                <td>
+                    <a href="#" class="active">全部</a>
+                    <a href="#">2018</a>
+                    <a href="#">2017</a>
+                    <a href="#">2016</a>
+                    <a href="#">2015</a>
+                    <a href="#">更早</a>
+                 </td>
+            </tr>
+
+            <tr>
+                <td>地区</td>
+                <td>
+                    <a href="#" class="active">全部</a>
+                    <a href="#">中国</a>
+                    <a href="#">美国</a>
+                    <a href="#">英国</a>
+                    <a href="#">日本</a>
+                    <a href="#">韩国</a>
+                    <a href="#">法国</a>
+                    <a href="#">泰国</a>
+                    <a href="#">印度</a>
+                    <a href="#">德国</a>
+                 </td>
+            </tr>
+            {% endif %}
+        </table>
+    </div>
+
+	<!-- 排序 -->
+	<div class="sort">
+		<div class="col-mx-12">
+			<a {% ifequal sort 'score' %}class="active"{% endifequal %} href="?sort=score">最高评分</a>
+			<a {% ifequal sort '' %}class="active"{% endifequal %} href="?">时间最新</a>
+			<span class="glyphicon glyphicon-pencil">&nbsp;瞬间精彩不容错过！</span>
+		</div>
+	</div>
+
+    <!-- 列表展示 -->
+    <div class="row">
+    {% for m in video %}
+    	<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+    		<div class="movie">
+    			<a href="/video/detail/{{ m.id }}/"><img src={% if m.image|str_imagefield != 'http' %}{{ MEDIA_URL }}{% endif %}{{ m.image }}></a>
+    			<a href="/video/detail/{{ m.id }}/" class="title">{{ m.name }}</a>
+    			<p>{{ m.add_time }}</p>
+    		</div>
+    	</div>
+    {% endfor %}
+    </div>
+
+    <!-- 页码展示 -->
+    <div class="page">
+    {% if video.has_previous %}
+    	<a href="?page={{ video.previous_page_number }}&sort={{ sort }}" class="pre">上一页</a>
+    {% endif %}
+        {% for num in plist %}
+    	<a {% ifequal video.number num %}class="active"{% endifequal %} href="?page={{ num }}&sort={{ sort }}">{{ num }}</a>
+        {% endfor %}
+    {% if video.has_next %}
+    	<a href="?page={{ video.next_page_number }}&sort={{ sort }}" class="next">下一页</a>
+    {% endif %}
+    </div>
+{% endblock %}
